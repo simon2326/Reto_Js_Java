@@ -7,6 +7,4 @@ class Producto {
     }
 }
 
-
-
-module.exports = Producto;
+export default Producto;

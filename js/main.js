@@ -1,14 +1,32 @@
-const Producto = require('./Producto');
-const Carrito = require('./carrito');
+import Producto from './producto.js';
+import Carrito from './carrito.js';
+import Contenedor from './contenedor.js';
+
+let carrito, contenedor
+
+window.onload = ()=>{
+    console.log('Página cargada');
+    carrito = new Carrito();
+    carrito.agregar(new Producto({
+        nombre: "coca-cola",
+        descripcion: "bebida",
+        precio:2000,
+        imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
+    }));
+
+    carrito.agregar(new Producto({
+        nombre: "coca-cola",
+        descripcion: "bebida",
+        precio:2000,
+        imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
+    }));
+
+    const productosContainer = document.getElementById("productos");
+    
+    contenedor = new Contenedor();
+    contenedor.ref = productosContainer;
+
+    contenedor.pintarDatos(carrito.productos);
+}
 
 
-
-let p = new Producto({nombre: "lol", descripcion: "Bebida", precio: 12.3, imagen: ""});
-let p2 = new Producto({nombre: "lol", descripcion: "Bebida", precio: 12.3, imagen: ""});
-let p3 = new Producto({nombre: "aybb es q tu tmb", descripcion: "Beb", precio: 123, imagen: ""});
-let c = new Carrito();
-c.agregar(p);
-c.agregar(p2);
-c.agregar(p3);
-
-console.log(c);

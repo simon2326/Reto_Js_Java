@@ -8,4 +8,4 @@ class Carrito{
     }
 }
 
-module.exports = Carrito;
+export default Carrito;
