@@ -125,18 +125,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-var Producto = /*#__PURE__*/_createClass(function Producto(obj) {
-  _classCallCheck(this, Producto);
-  this.nombre = obj.nombre;
-  this.descripcion = obj.descripcion;
-  this.precio = obj.precio;
-  this.imagen = obj.imagen;
-});
+var Producto = /*#__PURE__*/function () {
+  function Producto(obj) {
+    _classCallCheck(this, Producto);
+    this.nombre = obj.nombre;
+    this.descripcion = obj.descripcion;
+    this.precio = obj.precio;
+    this.imagen = obj.imagen;
+    this.productos = [];
+  }
+  return _createClass(Producto, [{
+    key: "agregar",
+    value: function agregar(obj) {
+      this.productos.push(obj);
+    }
+  }]);
+}();
 var _default = exports.default = Producto;
 },{}],"js/carrito.js":[function(require,module,exports) {
 "use strict";
@@ -186,7 +195,7 @@ var Contenedor = /*#__PURE__*/function () {
     value: function pintarDatos(obj) {
       var tem = "";
       for (var i in obj) {
-        tem += "<div class=\"card\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <div class=\"cantidad\">\n                    <p class=\"precio\">").concat(obj[i].precio, "</p>\n                    <input type=\"button\" value=\"-\" class=\"btn\">\n                    <input type=\"text\" class=\"cantidad\">\n                    <input type=\"button\" value=\"+\" class=\"btn\">\n                </div>\n                <input type=\"button\" value=\"Agregar\" class=\"btn_agregar\">\n            </div>");
+        tem += "<div class=\"card\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <div class=\"cantidad\">\n                    <p class=\"precio\">").concat(obj[i].precio, "</p>\n                    <input type=\"button\" value=\"-\" class=\"btn-menos\">\n                    <input type=\"text\" class=\"cantidad\" value=\"1\" readonly>\n                    <input type=\"button\" value=\"+\" class=\"btn-mas\">\n                </div>\n                <input type=\"button\" value=\"Agregar\" class=\"btn_agregar\">\n            </div>");
       }
       this.ref.innerHTML = tem;
     }
@@ -202,7 +211,6 @@ var _contenedor = _interopRequireDefault(require("./contenedor.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var carrito, contenedor;
 window.onload = function () {
-  console.log('Página cargada');
   carrito = new _carrito.default();
   carrito.agregar(new _producto.default({
     nombre: "coca-cola",
@@ -220,6 +228,23 @@ window.onload = function () {
   contenedor = new _contenedor.default();
   contenedor.ref = productosContainer;
   contenedor.pintarDatos(carrito.productos);
+  var btnsMenos = document.querySelectorAll('.btn-menos');
+  var btnsMas = document.querySelectorAll('.btn-mas');
+  var cantidadInputs = document.querySelectorAll('.cantidad');
+  btnsMenos.forEach(function (btnMenos, index) {
+    btnMenos.addEventListener('click', function () {
+      var cantidad = parseInt(cantidadInputs[index].value);
+      cantidad = cantidad > 1 ? cantidad - 1 : 1;
+      cantidadInputs[index].value = cantidad;
+    });
+  });
+  btnsMas.forEach(function (btnMas, index) {
+    btnMas.addEventListener('click', function () {
+      var cantidad = parseInt(cantidadInputs[index].value);
+      cantidad++;
+      cantidadInputs[index].value = cantidad;
+    });
+  });
 };
 },{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js"}],"../../../.nvm/versions/node/v20.11.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];

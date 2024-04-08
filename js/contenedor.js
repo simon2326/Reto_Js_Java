@@ -11,9 +11,9 @@ class Contenedor{
                 </span>
                 <div class="cantidad">
                     <p class="precio">${obj[i].precio}</p>
-                    <input type="button" value="-" class="btn">
-                    <input type="text" class="cantidad">
-                    <input type="button" value="+" class="btn">
+                    <input type="button" value="-" class="btn-menos">
+                    <input type="text" class="cantidad" value="1" readonly>
+                    <input type="button" value="+" class="btn-mas">
                 </div>
                 <input type="button" value="Agregar" class="btn_agregar">
             </div>`;
