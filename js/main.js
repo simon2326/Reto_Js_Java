@@ -4,6 +4,7 @@ import Contenedor from './contenedor.js';
 import Lista from './lista.js';
 
 let carrito, contenedor, lista
+let listap = [];
 
 window.onload = ()=>{
     lista = new Lista();
@@ -52,7 +53,6 @@ window.onload = ()=>{
     const btnsMenos = document.querySelectorAll('.btn-menos');
     const btnsMas = document.querySelectorAll('.btn-mas');
     const cantidadInputs = document.querySelectorAll('.cantidad input[type="text"]');
-
     const btnAgregar = document.querySelectorAll('.btn_agregar');
   
     btnsMenos.forEach((btnMenos, index) => {
@@ -72,14 +72,17 @@ window.onload = ()=>{
         cantidadInputs[index].value = cantidad;
       });
 
-      console.log(document.querySelectorAll('.btn_agregar'));
-
-      btnAgregar.addEventListener("click", (event)=>{
-        let index = event.target.attributes[1].value;
-        console.log(btnAgregar);
-        carrito.agregar(lista.productos[index]);
-        console.log(carrito);
+      btnAgregar.forEach((btn, index) => {
+        console.log(btn);
+        btn.addEventListener('click', (event)=>{
+          console.log(event.target);
+          carrito.agregar(lista.productos[index]);
+          console.log(index);
+        });
       });
+
+      console.dir(carrito.productos);
+
     });
 
     

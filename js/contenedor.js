@@ -3,7 +3,7 @@ class Contenedor{
         let tem = "";
         for(var i in obj){
             tem += 
-            `<div class="card">
+            `<div class="card" id = "${i}">
                 <img src="${obj[i].imagen}" alt="producto">
                 <span class="texto">
                     <h1 class="nombre">${obj[i].nombre}</h1>

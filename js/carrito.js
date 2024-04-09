@@ -4,7 +4,7 @@ class Carrito{
     }
 
     agregar(obj){
-        this.productos.push(obj);
+        this.productos = obj;
     }
 }
 

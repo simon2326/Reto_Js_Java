@@ -169,7 +169,7 @@ var Carrito = /*#__PURE__*/function () {
   _createClass(Carrito, [{
     key: "agregar",
     value: function agregar(obj) {
-      this.productos.push(obj);
+      this.productos = obj;
     }
   }]);
   return Carrito;
@@ -197,7 +197,7 @@ var Contenedor = /*#__PURE__*/function () {
     value: function pintarDatos(obj) {
       var tem = "";
       for (var i in obj) {
-        tem += "<div class=\"card\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <div class=\"cantidad\">\n                    <p class=\"precio\">").concat(obj[i].precio, "</p>\n                    <input type=\"button\" valor=\"").concat(i, "\" value=\"-\" class=\"btn-menos\">\n                    <input type=\"text\" class=\"cantidad\" value=\"1\" readonly>\n                    <input type=\"button\" value=\"+\" class=\"btn-mas\">\n                </div>\n                <input type=\"button\" value=\"Agregar\" class=\"btn_agregar\">\n            </div>");
+        tem += "<div class=\"card\" id = \"".concat(i, "\">\n                <img src=\"").concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <div class=\"cantidad\">\n                    <p class=\"precio\">").concat(obj[i].precio, "</p>\n                    <input type=\"button\" valor=\"").concat(i, "\" value=\"-\" class=\"btn-menos\">\n                    <input type=\"text\" class=\"cantidad\" value=\"1\" readonly>\n                    <input type=\"button\" value=\"+\" class=\"btn-mas\">\n                </div>\n                <input type=\"button\" value=\"Agregar\" class=\"btn_agregar\">\n            </div>");
       }
       this.ref.innerHTML = tem;
     }
@@ -241,6 +241,7 @@ var _contenedor = _interopRequireDefault(require("./contenedor.js"));
 var _lista = _interopRequireDefault(require("./lista.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var carrito, contenedor, lista;
+var listap = [];
 window.onload = function () {
   lista = new _lista.default();
   carrito = new _carrito.default();
@@ -297,13 +298,15 @@ window.onload = function () {
       cantidad++;
       cantidadInputs[index].value = cantidad;
     });
-    console.log(document.querySelectorAll('.btn_agregar'));
-    btnAgregar.addEventListener("click", function (event) {
-      var index = event.target.attributes[1].value;
-      console.log(btnAgregar);
-      carrito.agregar(lista.productos[index]);
-      console.log(carrito);
+    btnAgregar.forEach(function (btn, index) {
+      console.log(btn);
+      btn.addEventListener('click', function (event) {
+        console.log(event.target);
+        carrito.agregar(lista.productos[index]);
+        console.log(index);
+      });
     });
+    console.dir(carrito.productos);
   });
 };
 },{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js","./lista.js":"js/lista.js"}],"../../../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -331,7 +334,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50785" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51379" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
