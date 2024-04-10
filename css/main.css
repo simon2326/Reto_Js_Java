@@ -29,7 +29,7 @@ body {
     align-items: center;
   }
   
-  .btn_carrito {
+  .btn_carrito, .btn_cerrar{
     position: static; 
     margin-bottom: 20px; 
     margin-top: 10px;
@@ -82,7 +82,7 @@ body {
     margin: 0 5px;
   }
   
-  .btn, .btn_agregar {
+  .btn, .btn_agregar{
     padding: 5px 10px;
     background-color: #333;
     color: #fff;
@@ -90,6 +90,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
   }
+
   
   .btn_agregar {
     background-color: #28a745;
@@ -112,6 +113,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 1000; /* asegurar que la modal esté por encima de todo */
     display: none; /* ocultar inicialmente */
+    overflow: auto;
+
   }
 
   .overlay {
@@ -123,4 +126,47 @@ body {
     background-color: rgba(0, 0, 0, 0.5); /* fondo semi-transparente */
     display: none; /* ocultar inicialmente */
   }
+
+  .btn_cerrar{
+    margin-left: 800px;
+    margin-top: -100px;
+  }
+
+  .btn_finalizar{
+    color: #fff;
+    background-color: #28a745;
+    width: 120px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 370px;
+  }
+
+
+
+
+#totales {
+  /* Otros estilos para los totales */
+  text-align: center;
+  margin-top: 20px; /* Espacio entre el contenido del carrito y los totales */
+}
+
+.total, #total_input {
+  /* Estilos para el total y el input */
+  margin-bottom: 10px; /* Espacio entre el total y el input */
+}
+
+.p_carrito {
+  font-size: 20px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+
+
+  
+
+ 
+
   

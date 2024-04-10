@@ -227,6 +227,37 @@ var Lista = /*#__PURE__*/function () {
   }]);
 }();
 var _default = exports.default = Lista;
+},{}],"js/modalContenedor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+//import { closeModal }  from './main.js';
+var ModalContenedor = /*#__PURE__*/function () {
+  function ModalContenedor() {
+    _classCallCheck(this, ModalContenedor);
+  }
+  return _createClass(ModalContenedor, [{
+    key: "pintarDatos",
+    value: function pintarDatos(obj) {
+      var tem = "";
+      for (var i in obj) {
+        tem += "<div class=\"card\" id = \"card_carrito\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <p class=\"precio\">").concat(obj[i].precio, "</p>\n                <input type=\"text\" class=\"cantidad\" value=").concat(obj[i].cantidad, " readonly>\n            </div>");
+      }
+      tem += "<div id=\"totales\">\n            <p class=\"total\">total</p>\n            <input type=\"text\" name=\"\" id=\"total_input\"> \n            </div>\n            <button class=\"btn_finalizar\">finalizar</button>";
+      this.ref.insertAdjacentHTML('beforeend', tem);
+    }
+  }]);
+}();
+var _default = exports.default = ModalContenedor;
 },{}],"js/main.js":[function(require,module,exports) {
 "use strict";
 
@@ -234,9 +265,9 @@ var _producto = _interopRequireDefault(require("./producto.js"));
 var _carrito = _interopRequireDefault(require("./carrito.js"));
 var _contenedor = _interopRequireDefault(require("./contenedor.js"));
 var _lista = _interopRequireDefault(require("./lista.js"));
+var _modalContenedor = _interopRequireDefault(require("./modalContenedor.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var carrito, contenedor, lista, cantidad;
-var listap = [];
+var carrito, contenedor, lista, cantidad, modalContenedor;
 window.onload = function () {
   lista = new _lista.default();
   carrito = new _carrito.default();
@@ -281,12 +312,15 @@ window.onload = function () {
     });
   });
   btnsAgregar.forEach(function (btnAgregar) {
+    cantidad = 1;
     btnAgregar.addEventListener("click", function (event) {
       var index = event.target.attributes[2].value;
+      cantidad = parseInt(cantidadInputs[index].value);
       var obj = lista.productos[index];
       obj['cantidad'] = cantidad;
+      console.log(cantidad);
       carrito.agregar(obj);
-      console.log(carrito);
+      console.log(carrito.productos);
     });
   });
   function openModal() {
@@ -294,14 +328,24 @@ window.onload = function () {
     document.getElementById("modal").style.display = "block";
     document.getElementById("container").style.display = "none";
     var productosContainer = document.getElementById("carrito");
-    contenedor = new _contenedor.default();
-    contenedor.ref = productosContainer;
-    contenedor.pintarDatos(carrito.productos);
+    productosContainer.innerHTML = '';
+    modalContenedor = new _modalContenedor.default();
+    modalContenedor.ref = productosContainer;
+    modalContenedor.pintarDatos(carrito.productos);
   }
+  function closeModal() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("container").style.display = "block";
+  }
+
   // Agregar evento de clic al botón para abrir la modal
   document.querySelector(".btn_carrito").addEventListener("click", openModal);
+  document.querySelector(".btn_cerrar").addEventListener("click", closeModal);
 };
-},{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js","./lista.js":"js/lista.js"}],"../../../.nvm/versions/node/v20.11.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+//export {closeModal };
+},{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js","./lista.js":"js/lista.js","./modalContenedor.js":"js/modalContenedor.js"}],"../../../.nvm/versions/node/v20.11.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -326,7 +370,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38417" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32825" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
