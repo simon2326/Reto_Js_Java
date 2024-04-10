@@ -323,6 +323,12 @@ window.onload = function () {
     precio: 12000,
     imagen: "https://icons.iconarchive.com/icons/sonya/swarm/128/Juice-icon.png"
   }));
+  lista.agregar(new _producto.default({
+    nombre: "Soda de manzana",
+    descripcion: "bebida fria",
+    precio: 12000,
+    imagen: "https://icons.iconarchive.com/icons/bingxueling/fruit-vegetables/72/apple-green-icon.png"
+  }));
   var productosContainer = document.getElementById("productos");
   contenedor = new _contenedor.default();
   contenedor.ref = productosContainer;
@@ -428,7 +434,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43275" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46669" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

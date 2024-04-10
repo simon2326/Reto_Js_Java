@@ -42,6 +42,14 @@ window.onload = ()=>{
       precio:12000,
       imagen: "https://icons.iconarchive.com/icons/sonya/swarm/128/Juice-icon.png"
   }));
+
+  lista.agregar(new Producto({
+    nombre: "Soda de manzana",
+    descripcion: "bebida fria",
+    precio:12000,
+    imagen: "https://icons.iconarchive.com/icons/bingxueling/fruit-vegetables/72/apple-green-icon.png"
+}));
+
     
     const productosContainer = document.getElementById("productos");
     
