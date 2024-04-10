@@ -268,9 +268,21 @@ var _lista = _interopRequireDefault(require("./lista.js"));
 var _modalContenedor = _interopRequireDefault(require("./modalContenedor.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var carrito, contenedor, lista, cantidad, modalContenedor;
+function guardarCarritoEnLocalStorage() {
+  localStorage.setItem('carrito', JSON.stringify(carrito.productos));
+}
+
+// Función para cargar la lista de productos del carrito desde el localStorage
+function cargarCarritoDesdeLocalStorage() {
+  var carritoGuardado = localStorage.getItem('carrito');
+  if (carritoGuardado) {
+    carrito.productos = JSON.parse(carritoGuardado);
+  }
+}
 window.onload = function () {
   lista = new _lista.default();
   carrito = new _carrito.default();
+  cargarCarritoDesdeLocalStorage();
   lista.agregar(new _producto.default({
     nombre: "Coca-cola",
     descripcion: "bebida",
@@ -321,6 +333,7 @@ window.onload = function () {
       console.log(cantidad);
       carrito.agregar(obj);
       console.log(carrito.productos);
+      guardarCarritoEnLocalStorage();
     });
   });
   function openModal() {
@@ -343,8 +356,6 @@ window.onload = function () {
   document.querySelector(".btn_carrito").addEventListener("click", openModal);
   document.querySelector(".btn_cerrar").addEventListener("click", closeModal);
 };
-
-//export {closeModal };
 },{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js","./lista.js":"js/lista.js","./modalContenedor.js":"js/modalContenedor.js"}],"../../../.nvm/versions/node/v20.11.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -370,7 +381,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32825" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35351" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

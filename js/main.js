@@ -4,11 +4,24 @@ import Contenedor from './contenedor.js';
 import Lista from './lista.js';
 import ModalContenedor from './modalContenedor.js';
 
-let carrito, contenedor, lista, cantidad, modalContenedor
+let carrito, contenedor, lista, cantidad, modalContenedor 
+
+function guardarCarritoEnLocalStorage() {
+    localStorage.setItem('carrito', JSON.stringify(carrito.productos));
+}
+
+// Función para cargar la lista de productos del carrito desde el localStorage
+function cargarCarritoDesdeLocalStorage() {
+    const carritoGuardado = localStorage.getItem('carrito');
+    if (carritoGuardado) {
+        carrito.productos = JSON.parse(carritoGuardado);
+    }
+}
 
 window.onload = ()=>{
     lista = new Lista();
     carrito = new Carrito();
+    cargarCarritoDesdeLocalStorage();
     lista.agregar(new Producto({
         nombre: "Coca-cola",
         descripcion: "bebida",
@@ -67,6 +80,7 @@ window.onload = ()=>{
         console.log(cantidad)
         carrito.agregar(obj);
         console.log(carrito.productos);
+        guardarCarritoEnLocalStorage();
         });
     });  
     
@@ -96,6 +110,5 @@ window.onload = ()=>{
     
 }
 
-//export {closeModal };
 
 
