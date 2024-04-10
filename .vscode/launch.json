@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ejercicio2",
+            "request": "launch",
+            "mainClass": "ejercicio2",
+            "projectName": "Reto_Js_Java_79875c9f"
+        },
+        {
+            "type": "java",
             "name": "substring",
             "request": "launch",
             "mainClass": "substring",
