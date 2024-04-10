@@ -26,7 +26,7 @@ window.onload = ()=>{
         nombre: "Coca-cola",
         descripcion: "bebida",
         precio:2000,
-        imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
+        imagen: "https://icons.iconarchive.com/icons/michael/coke-pepsi/72/Coca-Cola-Can-icon.png"
     }));
 
     lista.agregar(new Producto({
@@ -40,7 +40,7 @@ window.onload = ()=>{
       nombre: "Soda de fresa",
       descripcion: "bebida fria",
       precio:12000,
-      imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
+      imagen: "https://icons.iconarchive.com/icons/sonya/swarm/128/Juice-icon.png"
   }));
     
     const productosContainer = document.getElementById("productos");
@@ -78,12 +78,17 @@ window.onload = ()=>{
         cantidad = parseInt(cantidadInputs[index].value);
         let obj = lista.productos[index];
         obj['cantidad'] = cantidad;
+        let precio = cantidad * obj['precio'];
+        obj['total'] = precio;
+        console.log(precio);
         console.log(cantidad)
         carrito.agregar(obj);
         console.log(carrito.productos);
         guardarCarritoEnLocalStorage();
         alert("Producto agregado")
         });
+        let totalees = carrito.calcularTotal();
+        console.log(totalees)
     });  
 
     
@@ -100,7 +105,11 @@ window.onload = ()=>{
         modalContenedor = new ModalContenedor();
         modalContenedor.ref = productosContainer;
         modalContenedor.pintarDatos(carrito.productos);
+
         btnsEliminar = document.querySelectorAll('.btn_eliminar');
+        const totalinput = document.querySelector('.total_input');
+        totalinput.value = carrito.calcularTotal();
+
         btnsEliminar.forEach((btnEliminar) => {
             btnEliminar.addEventListener("click", (event) => {
             let producto = event.target.className;
@@ -110,6 +119,7 @@ window.onload = ()=>{
             carrito.productos.splice(indice, 1);
             productosContainer.innerHTML = '';
             modalContenedor.pintarDatos(carrito.productos);
+            totalinput.value = carrito.calcularTotal();
             guardarCarritoEnLocalStorage();
             });
         });
@@ -125,8 +135,7 @@ window.onload = ()=>{
 
     // Agregar evento de clic al botón para abrir la modal
     document.querySelector(".btn_carrito").addEventListener("click", openModal);
-    document.querySelector(".btn_cerrar").addEventListener("click", closeModal);
-    
+    document.querySelector(".btn_cerrar").addEventListener("click", closeModal);    
 }
 
 

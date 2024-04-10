@@ -137,6 +137,7 @@ var Producto = /*#__PURE__*/_createClass(function Producto(obj) {
   this.precio = obj.precio;
   this.imagen = obj.imagen;
   this.cantidad = 0;
+  this.total = 0;
 });
 var _default = exports.default = Producto;
 },{}],"js/carrito.js":[function(require,module,exports) {
@@ -147,6 +148,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -168,6 +172,24 @@ var Carrito = /*#__PURE__*/function () {
       } else {
         this.productos.push(obj);
       }
+    }
+  }, {
+    key: "calcularTotal",
+    value: function calcularTotal() {
+      var totalCarrito = 0;
+      var _iterator = _createForOfIteratorHelper(this.productos),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var producto = _step.value;
+          totalCarrito += producto.total;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      return totalCarrito;
     }
   }]);
 }();
@@ -250,9 +272,9 @@ var ModalContenedor = /*#__PURE__*/function () {
     value: function pintarDatos(obj) {
       var tem = "";
       for (var i in obj) {
-        tem += "<div class=\"card\" id = \"card_carrito\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <p class=\"precio\">").concat(obj[i].precio, "</p>\n                <input type=\"text\" class=\"cantidad\" value=").concat(obj[i].cantidad, " readonly>\n                <button class=\"btn_eliminar\">\n                <img src=\"https://icons.iconarchive.com/icons/ampeross/qetto-2/48/trash-icon.png\" \n                alt=\"\" class=\"").concat(obj[i].nombre, "\"></button>\n            </div>");
+        tem += "<div class=\"card\" id = \"card_carrito\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <p class=\"precio\">").concat(obj[i].precio, " </p>\n                <input type=\"text\" class=\"cantidad\" id =\"carrito\" value=").concat(obj[i].cantidad, " readonly>\n                <button class=\"btn_eliminar\">\n                <img src=\"https://icons.iconarchive.com/icons/ampeross/qetto-2/48/trash-icon.png\" \n                alt=\"\" class=\"").concat(obj[i].nombre, "\"></button>\n            </div>");
       }
-      tem += "<div id=\"totales\">\n            <p class=\"total\">total</p>\n            <input type=\"text\" name=\"\" id=\"total_input\"> \n            </div>\n            <button class=\"btn_finalizar\">finalizar</button>";
+      tem += "<div id=\"totales\">\n            <p class=\"total\">total</p>\n            <input type=\"text\" name=\"\" class=\"total_input\" value=\"\" readonly> \n            </div>\n            <button class=\"btn_finalizar\">finalizar</button>";
       this.ref.insertAdjacentHTML('beforeend', tem);
     }
   }]);
@@ -287,7 +309,7 @@ window.onload = function () {
     nombre: "Coca-cola",
     descripcion: "bebida",
     precio: 2000,
-    imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
+    imagen: "https://icons.iconarchive.com/icons/michael/coke-pepsi/72/Coca-Cola-Can-icon.png"
   }));
   lista.agregar(new _producto.default({
     nombre: "Americano",
@@ -299,7 +321,7 @@ window.onload = function () {
     nombre: "Soda de fresa",
     descripcion: "bebida fria",
     precio: 12000,
-    imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
+    imagen: "https://icons.iconarchive.com/icons/sonya/swarm/128/Juice-icon.png"
   }));
   var productosContainer = document.getElementById("productos");
   contenedor = new _contenedor.default();
@@ -330,12 +352,17 @@ window.onload = function () {
       cantidad = parseInt(cantidadInputs[index].value);
       var obj = lista.productos[index];
       obj['cantidad'] = cantidad;
+      var precio = cantidad * obj['precio'];
+      obj['total'] = precio;
+      console.log(precio);
       console.log(cantidad);
       carrito.agregar(obj);
       console.log(carrito.productos);
       guardarCarritoEnLocalStorage();
       alert("Producto agregado");
     });
+    var totalees = carrito.calcularTotal();
+    console.log(totalees);
   });
   var btnsEliminar;
   function openModal() {
@@ -348,6 +375,8 @@ window.onload = function () {
     modalContenedor.ref = productosContainer;
     modalContenedor.pintarDatos(carrito.productos);
     btnsEliminar = document.querySelectorAll('.btn_eliminar');
+    var totalinput = document.querySelector('.total_input');
+    totalinput.value = carrito.calcularTotal();
     btnsEliminar.forEach(function (btnEliminar) {
       btnEliminar.addEventListener("click", function (event) {
         var producto = event.target.className;
@@ -359,6 +388,7 @@ window.onload = function () {
         carrito.productos.splice(indice, 1);
         productosContainer.innerHTML = '';
         modalContenedor.pintarDatos(carrito.productos);
+        totalinput.value = carrito.calcularTotal();
         guardarCarritoEnLocalStorage();
       });
     });
@@ -398,7 +428,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38841" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43275" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

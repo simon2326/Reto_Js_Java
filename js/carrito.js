@@ -12,6 +12,13 @@ class Carrito{
             this.productos.push(obj);
         }
     }
+    calcularTotal() {
+        let totalCarrito = 0;
+        for (let producto of this.productos) {
+            totalCarrito += producto.total;
+        }
+        return totalCarrito;
+    }
 }
 
 export default Carrito;

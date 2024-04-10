@@ -171,6 +171,16 @@ body {
   margin-right: -50px;
 }
 
+.total_input{
+
+    margin-bottom: 9px;
+    width: 90px;
+}
+
+.cantidad#carrito{
+  width: 60px;
+}
+
 
 
   

@@ -5,6 +5,7 @@ class Producto {
         this.precio = obj.precio;
         this.imagen = obj.imagen;
         this.cantidad = 0;
+        this.total = 0;
     }
 }
 
