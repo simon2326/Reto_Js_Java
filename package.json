@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "sass": "^1.74.1"
+  },
+  "dependencies": {
+    "howler": "^2.2.4"
   }
 }
