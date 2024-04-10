@@ -250,7 +250,7 @@ var ModalContenedor = /*#__PURE__*/function () {
     value: function pintarDatos(obj) {
       var tem = "";
       for (var i in obj) {
-        tem += "<div class=\"card\" id = \"card_carrito\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <p class=\"precio\">").concat(obj[i].precio, "</p>\n                <input type=\"text\" class=\"cantidad\" value=").concat(obj[i].cantidad, " readonly>\n            </div>");
+        tem += "<div class=\"card\" id = \"card_carrito\">\n                <img src=\"".concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <p class=\"precio\">").concat(obj[i].precio, "</p>\n                <input type=\"text\" class=\"cantidad\" value=").concat(obj[i].cantidad, " readonly>\n                <button class=\"btn_eliminar\">\n                <img src=\"https://icons.iconarchive.com/icons/ampeross/qetto-2/48/trash-icon.png\" \n                alt=\"\" class=\"").concat(obj[i].nombre, "\"></button>\n            </div>");
       }
       tem += "<div id=\"totales\">\n            <p class=\"total\">total</p>\n            <input type=\"text\" name=\"\" id=\"total_input\"> \n            </div>\n            <button class=\"btn_finalizar\">finalizar</button>";
       this.ref.insertAdjacentHTML('beforeend', tem);
@@ -334,8 +334,10 @@ window.onload = function () {
       carrito.agregar(obj);
       console.log(carrito.productos);
       guardarCarritoEnLocalStorage();
+      alert("Producto agregado");
     });
   });
+  var btnsEliminar;
   function openModal() {
     document.getElementById("overlay").style.display = "block";
     document.getElementById("modal").style.display = "block";
@@ -345,6 +347,21 @@ window.onload = function () {
     modalContenedor = new _modalContenedor.default();
     modalContenedor.ref = productosContainer;
     modalContenedor.pintarDatos(carrito.productos);
+    btnsEliminar = document.querySelectorAll('.btn_eliminar');
+    btnsEliminar.forEach(function (btnEliminar) {
+      btnEliminar.addEventListener("click", function (event) {
+        var producto = event.target.className;
+        var productoExistente = carrito.productos.find(function (p) {
+          return p.nombre === producto;
+        });
+        console.log(productoExistente);
+        var indice = carrito.productos.indexOf(productoExistente); // obtenemos el indice
+        carrito.productos.splice(indice, 1);
+        productosContainer.innerHTML = '';
+        modalContenedor.pintarDatos(carrito.productos);
+        guardarCarritoEnLocalStorage();
+      });
+    });
   }
   function closeModal() {
     document.getElementById("overlay").style.display = "none";
@@ -381,7 +398,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38841" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

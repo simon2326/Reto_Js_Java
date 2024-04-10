@@ -14,6 +14,9 @@ class ModalContenedor{
                 </span>
                 <p class="precio">${obj[i].precio}</p>
                 <input type="text" class="cantidad" value=${obj[i].cantidad} readonly>
+                <button class="btn_eliminar">
+                <img src="https://icons.iconarchive.com/icons/ampeross/qetto-2/48/trash-icon.png" 
+                alt="" class="${obj[i].nombre}"></button>
             </div>`;
         }
         tem += 

@@ -53,6 +53,7 @@ window.onload = ()=>{
     const btnsMas = document.querySelectorAll('.btn-mas');
     const cantidadInputs = document.querySelectorAll('.cantidad input[type="text"]');
     const btnsAgregar = document.querySelectorAll('.btn_agregar');
+    
   
     btnsMenos.forEach((btnMenos, index) => {
       btnMenos.addEventListener('click', (event) => {
@@ -81,10 +82,13 @@ window.onload = ()=>{
         carrito.agregar(obj);
         console.log(carrito.productos);
         guardarCarritoEnLocalStorage();
+        alert("Producto agregado")
         });
     });  
+
     
-        
+    
+    let btnsEliminar;
     function openModal() {
         
         document.getElementById("overlay").style.display = "block";
@@ -96,7 +100,22 @@ window.onload = ()=>{
         modalContenedor = new ModalContenedor();
         modalContenedor.ref = productosContainer;
         modalContenedor.pintarDatos(carrito.productos);
+        btnsEliminar = document.querySelectorAll('.btn_eliminar');
+        btnsEliminar.forEach((btnEliminar) => {
+            btnEliminar.addEventListener("click", (event) => {
+            let producto = event.target.className;
+            const productoExistente = carrito.productos.find(p => p.nombre === producto);
+            console.log(productoExistente)
+            var indice = carrito.productos.indexOf(productoExistente); // obtenemos el indice
+            carrito.productos.splice(indice, 1);
+            productosContainer.innerHTML = '';
+            modalContenedor.pintarDatos(carrito.productos);
+            guardarCarritoEnLocalStorage();
+            });
+        });
     }
+    
+   
 
     function closeModal() {
         document.getElementById("overlay").style.display = "none";

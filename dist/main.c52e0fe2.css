@@ -29,7 +29,7 @@ body {
     align-items: center;
   }
   
-  .btn_carrito, .btn_cerrar{
+  .btn_carrito, .btn_cerrar, .btn_eliminar{
     position: static; 
     margin-bottom: 20px; 
     margin-top: 10px;
@@ -161,6 +161,14 @@ body {
   font-size: 20px;
   margin-bottom: 5px;
   margin-left: 10px;
+}
+
+.btn_eliminar{
+  img{
+    width: 40px;
+    height: 40px;
+  }
+  margin-right: -50px;
 }
 
 
