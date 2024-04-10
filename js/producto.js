@@ -4,10 +4,7 @@ class Producto {
         this.descripcion = obj.descripcion;
         this.precio = obj.precio;
         this.imagen = obj.imagen;
-        this.productos = [];
-    }
-    agregar(obj){
-        this.productos.push(obj);
+        this.cantidad = 0;
     }
 }
 

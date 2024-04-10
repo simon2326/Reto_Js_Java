@@ -4,7 +4,13 @@ class Carrito{
     }
 
     agregar(obj){
-        this.productos = obj;
+        const productoExistente = this.productos.find(p => p.nombre === obj.nombre);
+        if (productoExistente){
+            productoExistente.cantidad = obj.cantidad;
+        } 
+        else {
+            this.productos.push(obj);
+        }
     }
 }
 

@@ -125,28 +125,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var Producto = /*#__PURE__*/function () {
-  function Producto(obj) {
-    _classCallCheck(this, Producto);
-    this.nombre = obj.nombre;
-    this.descripcion = obj.descripcion;
-    this.precio = obj.precio;
-    this.imagen = obj.imagen;
-    this.productos = [];
-  }
-  _createClass(Producto, [{
-    key: "agregar",
-    value: function agregar(obj) {
-      this.productos.push(obj);
-    }
-  }]);
-  return Producto;
-}();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var Producto = /*#__PURE__*/_createClass(function Producto(obj) {
+  _classCallCheck(this, Producto);
+  this.nombre = obj.nombre;
+  this.descripcion = obj.descripcion;
+  this.precio = obj.precio;
+  this.imagen = obj.imagen;
+  this.cantidad = 0;
+});
 var _default = exports.default = Producto;
 },{}],"js/carrito.js":[function(require,module,exports) {
 "use strict";
@@ -159,20 +150,26 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var Carrito = /*#__PURE__*/function () {
   function Carrito(obj) {
     _classCallCheck(this, Carrito);
     this.productos = [];
   }
-  _createClass(Carrito, [{
+  return _createClass(Carrito, [{
     key: "agregar",
     value: function agregar(obj) {
-      this.productos = obj;
+      var productoExistente = this.productos.find(function (p) {
+        return p.nombre === obj.nombre;
+      });
+      if (productoExistente) {
+        productoExistente.cantidad = obj.cantidad;
+      } else {
+        this.productos.push(obj);
+      }
     }
   }]);
-  return Carrito;
 }();
 var _default = exports.default = Carrito;
 },{}],"js/contenedor.js":[function(require,module,exports) {
@@ -186,23 +183,22 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var Contenedor = /*#__PURE__*/function () {
   function Contenedor() {
     _classCallCheck(this, Contenedor);
   }
-  _createClass(Contenedor, [{
+  return _createClass(Contenedor, [{
     key: "pintarDatos",
     value: function pintarDatos(obj) {
       var tem = "";
       for (var i in obj) {
-        tem += "<div class=\"card\" id = \"".concat(i, "\">\n                <img src=\"").concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <div class=\"cantidad\">\n                    <p class=\"precio\">").concat(obj[i].precio, "</p>\n                    <input type=\"button\" valor=\"").concat(i, "\" value=\"-\" class=\"btn-menos\">\n                    <input type=\"text\" class=\"cantidad\" value=\"1\" readonly>\n                    <input type=\"button\" value=\"+\" class=\"btn-mas\">\n                </div>\n                <input type=\"button\" value=\"Agregar\" class=\"btn_agregar\">\n            </div>");
+        tem += "<div class=\"card\" id = \"".concat(i, "\">\n                <img src=\"").concat(obj[i].imagen, "\" alt=\"producto\">\n                <span class=\"texto\">\n                    <h1 class=\"nombre\">").concat(obj[i].nombre, "</h1>\n                    <p class=\"descripcion\">").concat(obj[i].descripcion, "</p>\n                </span>\n                <div class=\"cantidad\">\n                    <p class=\"precio\">").concat(obj[i].precio, "</p>\n                    <input type=\"button\" valor=\"").concat(i, "\" value=\"-\" class=\"btn-menos\">\n                    <input type=\"text\" class=\"cantidad\" value=\"1\" readonly>\n                    <input type=\"button\" value=\"+\" class=\"btn-mas\">\n                </div>\n                <input type=\"button\" value=\"Agregar\" data-index=\"").concat(i, "\" class=\"btn_agregar\">\n            </div>");
       }
       this.ref.innerHTML = tem;
     }
   }]);
-  return Contenedor;
 }();
 var _default = exports.default = Contenedor;
 },{}],"js/lista.js":[function(require,module,exports) {
@@ -216,20 +212,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var Lista = /*#__PURE__*/function () {
   function Lista(obj) {
     _classCallCheck(this, Lista);
     this.productos = [];
   }
-  _createClass(Lista, [{
+  return _createClass(Lista, [{
     key: "agregar",
     value: function agregar(obj) {
       this.productos.push(obj);
     }
   }]);
-  return Lista;
 }();
 var _default = exports.default = Lista;
 },{}],"js/main.js":[function(require,module,exports) {
@@ -240,39 +235,27 @@ var _carrito = _interopRequireDefault(require("./carrito.js"));
 var _contenedor = _interopRequireDefault(require("./contenedor.js"));
 var _lista = _interopRequireDefault(require("./lista.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var carrito, contenedor, lista;
+var carrito, contenedor, lista, cantidad;
 var listap = [];
 window.onload = function () {
   lista = new _lista.default();
   carrito = new _carrito.default();
   lista.agregar(new _producto.default({
-    nombre: "coca-cola",
+    nombre: "Coca-cola",
     descripcion: "bebida",
     precio: 2000,
     imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
   }));
   lista.agregar(new _producto.default({
-    nombre: "coca-cola",
-    descripcion: "bebida",
-    precio: 2000,
+    nombre: "Americano",
+    descripcion: "Cafe negro",
+    precio: 6000,
     imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
   }));
   lista.agregar(new _producto.default({
-    nombre: "coca-cola",
-    descripcion: "bebida",
-    precio: 2000,
-    imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
-  }));
-  lista.agregar(new _producto.default({
-    nombre: "coca-cola",
-    descripcion: "bebida",
-    precio: 2000,
-    imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
-  }));
-  lista.agregar(new _producto.default({
-    nombre: "coca-cola",
-    descripcion: "bebida",
-    precio: 2000,
+    nombre: "Soda de fresa",
+    descripcion: "bebida fria",
+    precio: 12000,
     imagen: "https://icons.iconarchive.com/icons/martin-berube/food/128/coffee-icon.png"
   }));
   var productosContainer = document.getElementById("productos");
@@ -282,34 +265,32 @@ window.onload = function () {
   var btnsMenos = document.querySelectorAll('.btn-menos');
   var btnsMas = document.querySelectorAll('.btn-mas');
   var cantidadInputs = document.querySelectorAll('.cantidad input[type="text"]');
-  var btnAgregar = document.querySelectorAll('.btn_agregar');
+  var btnsAgregar = document.querySelectorAll('.btn_agregar');
   btnsMenos.forEach(function (btnMenos, index) {
     btnMenos.addEventListener('click', function (event) {
-      //let index = event.target.attributes[1].value;
-      var cantidad = parseInt(cantidadInputs[index].value);
-      //console.log(cantidadInputs[index].value);return;
+      cantidad = parseInt(cantidadInputs[index].value);
       cantidad = cantidad > 1 ? cantidad - 1 : 1;
       cantidadInputs[index].value = cantidad;
     });
   });
   btnsMas.forEach(function (btnMas, index) {
     btnMas.addEventListener('click', function (event) {
-      var cantidad = parseInt(cantidadInputs[index].value);
+      cantidad = parseInt(cantidadInputs[index].value);
       cantidad++;
       cantidadInputs[index].value = cantidad;
     });
-    btnAgregar.forEach(function (btn, index) {
-      console.log(btn);
-      btn.addEventListener('click', function (event) {
-        console.log(event.target);
-        carrito.agregar(lista.productos[index]);
-        console.log(index);
-      });
+  });
+  btnsAgregar.forEach(function (btnAgregar) {
+    btnAgregar.addEventListener("click", function (event) {
+      var index = event.target.attributes[2].value;
+      var obj = lista.productos[index];
+      obj['cantidad'] = cantidad;
+      carrito.agregar(obj);
+      console.log(carrito);
     });
-    console.dir(carrito.productos);
   });
 };
-},{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js","./lista.js":"js/lista.js"}],"../../../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js","./lista.js":"js/lista.js"}],"../../../.nvm/versions/node/v20.11.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -334,7 +315,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51379" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36363" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
@@ -478,5 +459,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/main.js"], null)
+},{}]},{},["../../../.nvm/versions/node/v20.11.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/main.js"], null)
 //# sourceMappingURL=/main.fb6bbcaf.js.map

@@ -15,7 +15,7 @@ class Contenedor{
                     <input type="text" class="cantidad" value="1" readonly>
                     <input type="button" value="+" class="btn-mas">
                 </div>
-                <input type="button" value="Agregar" class="btn_agregar">
+                <input type="button" value="Agregar" data-index="${i}" class="btn_agregar">
             </div>`;
         }
         this.ref.innerHTML = tem;
