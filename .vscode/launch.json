@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "substring",
+            "request": "launch",
+            "mainClass": "substring",
+            "projectName": "Reto_Js_Java_79875c9f"
+        },
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
