@@ -3,6 +3,8 @@
     "sass": "^1.74.1"
   },
   "dependencies": {
-    "howler": "^2.2.4"
+    "howler": "^2.2.4",
+    "js": "^0.1.0",
+    "sounds": "^1.0.2"
   }
 }
