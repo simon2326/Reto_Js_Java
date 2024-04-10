@@ -289,6 +289,17 @@ window.onload = function () {
       console.log(carrito);
     });
   });
+  function openModal() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("modal").style.display = "block";
+    document.getElementById("container").style.display = "none";
+    var productosContainer = document.getElementById("carrito");
+    contenedor = new _contenedor.default();
+    contenedor.ref = productosContainer;
+    contenedor.pintarDatos(carrito.productos);
+  }
+  // Agregar evento de clic al botón para abrir la modal
+  document.querySelector(".btn_carrito").addEventListener("click", openModal);
 };
 },{"./producto.js":"js/producto.js","./carrito.js":"js/carrito.js","./contenedor.js":"js/contenedor.js","./lista.js":"js/lista.js"}],"../../../.nvm/versions/node/v20.11.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -315,7 +326,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36363" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38417" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

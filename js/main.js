@@ -65,7 +65,20 @@ window.onload = ()=>{
         carrito.agregar(obj);
         console.log(carrito);
         });
-    });   
+    });  
+    
+    function openModal() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("modal").style.display = "block";
+        document.getElementById("container").style.display = "none";
+
+        const productosContainer = document.getElementById("carrito");
+        contenedor = new Contenedor();
+        contenedor.ref = productosContainer;
+        contenedor.pintarDatos(carrito.productos);
+    }
+    // Agregar evento de clic al botón para abrir la modal
+    document.querySelector(".btn_carrito").addEventListener("click", openModal);
 
 }
 
